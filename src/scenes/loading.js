@@ -5,7 +5,7 @@ export class Loading extends Scene {
         super(game);
         this.game = game;
         this.loadedAt = 0;
-        
+        this.results = "menu"
     }
 
     init() {
@@ -18,8 +18,7 @@ export class Loading extends Scene {
             this.loadedAt = time;
         }
         if (this.loadedAt != 0 && (time - this.loadedAt) > 500) {
-            console.log("loaded")
-            this.finish(Scene.LOADED);
+            this.finish(Scene.LOADED, {nextScene: this.reults});
         }
     }
 

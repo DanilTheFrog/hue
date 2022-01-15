@@ -1,6 +1,9 @@
+import { Button } from "./button";
+import { Tile } from "./tile";
 
 export class ElementsManager {
-    constructor(elements) {
+    constructor(game, elements) {
+        this.game = game;
         this.elements = [
             [],
             [],
@@ -8,6 +11,21 @@ export class ElementsManager {
         ];
         if (elements) {
             this.addElements(elements);
+        }
+        this.create = {
+            Button: (data)=> { return new Button(this.game, data); },
+            Tile: (data)=> { return new Tile(this.game, data); }
+        }
+    }
+
+    replaceElement(from, to) {
+        
+    }
+
+    createNewElement(name, data) {
+        console.log("create element")
+        if (name && data) {
+            this.elements[1].push(this.create[name](data));
         }
     }
 

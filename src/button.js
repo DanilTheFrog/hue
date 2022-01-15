@@ -1,9 +1,10 @@
 import { Element } from "./element";
 
 export class Button extends Element{
-    constructor(game, {x, y, w, h, text, color, fontColor}) {
+    constructor(game, {x, y, w, h, text, color, fontColor, link}) {
         super({game: game, x:x, y:y, h:h, w:w});
         this.text = text;
+        this.link = link;
         this.controlType = "click";
         this.color = color;
         this.animation = {
@@ -16,6 +17,8 @@ export class Button extends Element{
 
     action() {
         this.animation.running = true;
+        this.game.sceneManager.offerNextScene(this.link);
+        console.log(this.game.sceneManager.offers);
     }
 
     getDisplayData() {

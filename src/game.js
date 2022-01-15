@@ -10,28 +10,20 @@ export class Game {
         this.screen = new Screen(width, height);
         this.sceneManager = new SceneManager({game: this});
         this.scenes = this.sceneManager.scenes;
-        this.currentScene = this.scenes.loading;
+        this.currentScene = this.sceneManager.currentScene;
         this.currentScene.init();
     }
 
-    changeScene(status) {
-        switch(status){
-            case Scene.LOADED:
-                return this.scenes.menu;
-                break;
-            case Scene.START_GAME:
-                return this.scenes.gameLevel;
-                break;
-            default:
-                return this.scenes.menu;
-                break;
-        }
-    }
+
 
     frame(time) {
         if(this.currentScene.status != Scene.WORKING) {
-            this.currentScene = this.changeScene(this.currentScene.status);
+            // console.log("Смена c");
+            // console.log(this.currentScene)
+            this.currentScene = this.sceneManager.changeScene(this.currentScene.status, this.currentScene.results);
             this.currentScene.init();
+            // console.log("Смена на");
+            // console.log(this.currentScene)
         }
         this.currentScene.render(time);
         requestAnimationFrame(time => this.frame(time));

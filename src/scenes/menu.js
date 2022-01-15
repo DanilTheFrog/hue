@@ -9,28 +9,24 @@ export class Menu extends Scene {
         this.game = game;
         this.delay = 0;
         this.elements = [
-            new Button(game, {text:"1 lvl", x:200, y:200, h:50, w:100, bgr: "#ff0000"}),
-            new Button(game, {text:"2 lvl", x:200, y:300, h:50, w:100}),
-            new Button(game, {text:"3 lvl", x:200, y:400, h:50, w:100}),
+            new Button(game, {text:"1 lvl", x:200, y:200, h:50, w:100, link: "lvl1"}),
+            new Button(game, {text:"2 lvl", x:200, y:300, h:50, w:100, link: "lvl2"}),
+            new Button(game, {text:"gameLevel", x:200, y:400, h:50, w:150, link: "gameLevel"}),
             new Button(game, {text:"4 lvl", x:200, y:500, h:50, w:100}),
             new Button(game, {text:"bruh", x:400, y:500, h:50, w:200}),
             new Button(game, {text:"ура победа", x:800, y:300, h:100, w:40}),
             
         ];
-        this.elementsManager = new ElementsManager(this.elements);
+        this.elementsManager = new ElementsManager(this.game, this.elements);
         this.binder = new Binder(this.game.control, this.elementsManager.elements);
-        this.nextScene = "main";
         
     }
 
     update(time) {
-        if (this.binder.pressed && this.delay == 0) {
-            this.delay = time;
+        if (this.game.sceneManager.offers) {
+            this.finish(Scene.FINISHED);
         }
-        if (this.delay != 0 && (time - this.delay) > 1000) {
-            this.delay = 0;
-            this.finish(Scene.START_GAME);
-        }
+
     }
     
     render(time) {

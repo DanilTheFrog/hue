@@ -2,6 +2,7 @@ export class Scene {
     constructor(game) {
         this.game = game;
         this.status = this.constructor.WORKING;
+        this.sceneResults;
     }
 
     static get WORKING () {return 'WORKING'};
@@ -15,7 +16,8 @@ export class Scene {
         this.status = this.constructor.WORKING;
     }
 
-    finish(status) {
+    finish(status, data) {
+        this.game.sceneManager.processData(data);
         this.status = status;
     }
 
